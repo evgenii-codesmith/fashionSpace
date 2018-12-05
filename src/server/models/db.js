@@ -15,8 +15,10 @@ const initOptions = {
   receive(data, result, e) {
     console.log('DATA' + data)
   }
-}
+};
+
 const pgp = require('pg-promise')(initOptions);
+
 const db = pgp(process.env.SQL_URI);
 
 module.exports = db;
