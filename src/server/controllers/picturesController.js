@@ -16,20 +16,19 @@ picturesController.grabPics = (req, res, next) => {
           'style_outdoor' : el.style_outdoor,
         };
         return accum;
-
-      }, returnData)
-      return res.json(returnData)
+      }, returnData);
+      return res.json(returnData);
     })
     .catch((error) => {
       console.log(error);
-      res.send('ERROR! cannot grab links from database')
-    })
-}
+      res.send('ERROR! cannot grab links from database');
+    });
+};
 
 picturesController.uploadPicture = (req, res, next) => {
-  let { userUuid, uploadedFileCloudinaryUrl, uploadText, uploadStyleClickNightOut, uploadStyleClickOutDoor } = req.body;
+  const { userUuid, uploadedFileCloudinaryUrl, uploadText, uploadStyleClickNightOut, uploadStyleClickOutDoor } = req.body;
   db.any('INSERT INTO pictures(id, userid, city, latitude, longitude, likes, description, date, picture_url, style_nightlife, style_outdoor) VALUES (uuid_generate_v4(), $1, $2, $3, $4, $5, $6, $7, $8, $9, $10);'
-  ,[userUuid, res.locals.cityid, res.locals.latitude, res.locals.longitude, 0, uploadText, null, uploadedFileCloudinaryUrl, uploadStyleClickNightOut, uploadStyleClickOutDoor ])
+  , [userUuid, res.locals.cityid, res.locals.latitude, res.locals.longitude, 0, uploadText, null, uploadedFileCloudinaryUrl, uploadStyleClickNightOut, uploadStyleClickOutDoor])
     .then((data) => {
       console.log('Success storing picture info');
       return res.json(data);
@@ -38,6 +37,6 @@ picturesController.uploadPicture = (req, res, next) => {
       console.log(error);
       return res.send('ERROR! Could not save picture to database');
     });
-}
+};
 
 module.exports = picturesController;

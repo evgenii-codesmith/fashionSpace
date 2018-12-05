@@ -1,8 +1,8 @@
 require('dotenv').config();
 // requirements for using geoip library
 const GeoIP = require('simple-geoip');
-const geoip = new GeoIP(process.env.geoipkey);
 
+const geoip = new GeoIP(process.env.geoipkey);
 
 const userController = {};
 
@@ -18,11 +18,11 @@ userController.grabUserId = (req, res, next) => {
       console.error('Cannot find user in database');
       return res.sendStatus(500);
     });
-}
+};
 
-userController.updateCityId = (req, res, next) =>{
+userController.updateCityId = (req, res, next) => {
   const { cityid, userid } = res.locals;
-  const values = [cityd, userid];
+  const values = [cityid, userid];
   db.any('UPDATE users SET city = $1 WHERE id = $2', values)
     .then((data) => {
       console.log('Successfully updated city ID');
@@ -32,7 +32,7 @@ userController.updateCityId = (req, res, next) =>{
       console.error('Error updating city for user');
       return res.sendStatus(500)
     })
-}
+};
 
 userController.getIPaddress = (req, res, next) => {
   // Middleware that grabs IP address of the client; should be able to be
@@ -43,7 +43,7 @@ userController.getIPaddress = (req, res, next) => {
   // Savve the ipaddress into res.locals
   res.locals.ipaddress = ipaddress;
   next();
-}
+};
 
 userController.grabLocation = (req, res, next) => {
   geoip.lookup('74.87.214.86', (err, data) => {
@@ -56,6 +56,6 @@ userController.grabLocation = (req, res, next) => {
       return next();
     }
   });
-}
+};
 
 module.exports = userController;
