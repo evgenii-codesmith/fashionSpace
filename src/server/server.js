@@ -24,7 +24,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(__dirname + '/../../dist'));
 
 // automatically call getIpAddress and grabLocation
-app.use(userController.getIPaddress, userController.grabLocation, cityController.grabCityId);
+app.use(userController.getCity, cityController.grabCityId);
 
 
 // *** NEW ROUTES BY EVGENTI JIM
