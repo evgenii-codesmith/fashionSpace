@@ -20,15 +20,12 @@ const PORT = 3000;
 // localhost:3000
 app.use(cors());
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false}));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(__dirname + '/../../dist'));
 
 // automatically call getIpAddress and grabLocation
-app.use(userController.getIPaddress, userController.grabLocation, cityController.grabCityId);
+app.use(userController.getCity, cityController.grabCityId);
 
-// app.get('/pictures', getIpAddress, (req,res) => {
-//   const geo = geoip.lookup(res.locals.ipaddress);
-// })
 
 // *** NEW ROUTES BY EVGENTI JIM
 app.post('/login', userController.grabUserId, userController.updateCityId, (req, res) => {
@@ -44,3 +41,7 @@ app.listen(PORT, (err) => {
   if (err) console.log(err);
   else console.log(`Server listening on Port: ${PORT}...`);
 });
+
+// app.get('/pictures', getIpAddress, (req,res) => {
+//   const geo = geoip.lookup(res.locals.ipaddress);
+// })

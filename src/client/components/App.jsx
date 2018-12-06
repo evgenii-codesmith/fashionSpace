@@ -69,7 +69,7 @@ class App extends React.Component {
       const formData = new FormData();
       formData.append("file", image);
       formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET); // Replace the preset name with your own
-      formData.append("api_key", 484393632848713); // Replace API key with your own Cloudinary API key
+      formData.append("api_key", CLOUDINARY_API_KEY); // Replace API key with your own Cloudinary API key
       formData.append("timestamp", (Date.now() / 1000) | 0);
 
       // Replace cloudinary upload URL with yours
