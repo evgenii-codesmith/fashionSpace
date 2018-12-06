@@ -21,4 +21,14 @@ const pgp = require('pg-promise')(initOptions);
 
 const db = pgp(process.env.SQL_URI);
 
+//Db connection test
+// db.proc('version')
+//     .then(data => {
+//       console.log('Connected to elephantsql: ',data);
+//     })
+//     .catch(error => {
+//         console.log(error);
+//     });
+
+
 module.exports = db;
