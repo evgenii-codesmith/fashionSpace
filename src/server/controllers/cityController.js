@@ -1,3 +1,4 @@
+const db = require('../models/db')
 const cityController = {};
 
 cityController.grabCityId = (req, res, next) =>{

@@ -16,7 +16,17 @@ const initOptions = {
     console.log('DATA' + data)
   }
 }
+
+
 const pgp = require('pg-promise')(initOptions);
 const db = pgp(process.env.SQL_URI);
+
+// db.proc('version')
+//    .then(data => {
+//      console.log(data);
+//    })
+//    .catch(error => {
+//        console.log(error);
+//    });
 
 module.exports = db;

@@ -1,3 +1,4 @@
+const db = require('../models/db')
 const picturesController = {};
 
 picturesController.grabPics = (req, res, next) => {
