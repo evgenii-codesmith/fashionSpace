@@ -25,7 +25,12 @@ app.use(express.static(path.join(__dirname, '../../dist/')));
 
 // app.use(passport.initialize());
 // app.use(passport.session());
-app.use(cors());
+// app.use(cors());
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+ });
 
 // automatically call getIpAddress and grabLocation
 app.use(cookieController.checkInfo, userController.getCity, cityController.grabCityId, userController.startSession);
@@ -38,7 +43,7 @@ app.use(cookieController.checkInfo, userController.getCity, cityController.grabC
 app.post('/login', userController.grabUserId, userController.updateCityId, (req, res) => {
   console.log('almost done with login');
   cookieController.setCookie(req, res);
-  return res.send('');
+  return res.json({ data: res.locals.userid });
 });
 
 app.get('/pictures', picturesController.grabPics);

@@ -18,7 +18,7 @@ class Coldplay extends React.Component {
       url="https://s1.vocaroo.com/media/download_temp/Vocaroo_s1rdGgP9ERN2.mp3"
       playStatus={Sound.status.PLAYING}
       playFromPosition={0 /* in milliseconds */}
-      // autoLoad='true'
+      autoLoad='true'
     />
   )
   }
