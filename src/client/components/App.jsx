@@ -1,15 +1,11 @@
-import React from "react";
-import Login from "./../router/Login.jsx";
-import { BrowserRouter, Router, Route, Switch } from "react-router-dom";
-import Home from "./../router/Home.jsx";
-import history from "./../router/history.jsx";
-import PhotoUpload from "./../router/PhotoUpload.jsx";
-import axios from "axios";
-import Coldplay from "./Sound"
 
-const CLOUDINARY_UPLOAD_PRESET = "p2qbhuwl";
-const CLOUDINARY_UPLOAD_URL =
-  "https://api.cloudinary.com/v1_1/dwbr9kbj2/image/upload";
+import React from 'react';
+import Login from './../router/Login.jsx'
+import { Router, Route, Switch } from 'react-router-dom'
+import Home from './../router/Home.jsx'
+import history from './../router/history.jsx'
+import PhotoUpload from './../router/PhotoUpload.jsx'
+import axios from 'axios'
 
 class App extends React.Component {
   constructor(props) {
@@ -69,16 +65,14 @@ class App extends React.Component {
       const formData = new FormData();
       formData.append("file", image);
       formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET); // Replace the preset name with your own
-      formData.append("api_key", 484393632848713); // Replace API key with your own Cloudinary API key
+      formData.append("api_key", CLOUDINARY_API_KEY); // Replace API key with your own Cloudinary API key
       formData.append("timestamp", (Date.now() / 1000) | 0);
 
-      // Replace cloudinary upload URL with yours
-      return axios
-        .post(
-          "https://api.cloudinary.com/v1_1/dwbr9kbj2/image/upload",
-          formData,
-          { headers: { "X-Requested-With": "XMLHttpRequest" } }
-        )
+
+      return axios.post(
+        "https://api.cloudinary.com/v1_1/ dwbr9kbj2/image/upload",
+        formData, 
+        { headers: { "X-Requested-With": "XMLHttpRequest" }})
         .then(response => {
           this.setState({
             uploadedFileCloudinaryUrl: response.data.url,
