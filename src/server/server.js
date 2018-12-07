@@ -20,15 +20,20 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(__dirname + '/../../dist'));
+app.use(express.static(path.join(__dirname, '../../dist/')));
 
 // automatically call getIpAddress and grabLocation
 app.use(cookieController.checkInfo, userController.getCity, cityController.grabCityId, userController.startSession);
 
 // *** NEW ROUTES BY EVGENTI JIM
+// app.get('/', (req, res) => {
+//   res.send();
+// });
+
 app.post('/login', userController.grabUserId, userController.updateCityId, (req, res) => {
+  console.log('almost done with login');
   cookieController.setCookie(req, res);
-  return res.json(res.locals.userid);
+  return res.send('');
 });
 
 app.get('/pictures', picturesController.grabPics);
