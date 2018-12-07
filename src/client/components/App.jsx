@@ -207,7 +207,7 @@ class App extends React.Component {
             .then(response => {
                 let arr = [];
                 for (let key in response.data) {
-                let img_url_crop = response.data[key].picture_url.replace('upload/', 'upload/w_500,h_500/');
+                let img_url_crop = response.data[key].url.replace('upload/', 'upload/w_500,h_500/');
                 console.log(img_url_crop);
                 arr.push(<div><img id={key} onClick={this.handleShowModal} src={img_url_crop} className="imgDisplay"/></div>)
                 }
