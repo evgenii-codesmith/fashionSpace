@@ -1,4 +1,6 @@
 require('dotenv').config();
+const db = require('../models/db')
+
 // requirements for using geoip library
 const cities = require('cities');
 const db = require('../models/db');
@@ -33,6 +35,7 @@ userController.updateCityId = (req, res, next) => {
   console.log('updating city id');
   const { cityid, userid } = res.locals;
   const values = [cityid, userid];
+
   db.any('UPDATE users SET city_id = $1 WHERE id = $2', values)
     .then((data) => {
       console.log('Successfully updated city ID');

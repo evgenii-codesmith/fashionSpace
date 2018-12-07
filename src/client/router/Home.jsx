@@ -45,9 +45,6 @@ class Home extends React.Component {
         super(props)
     }
 
-
-
-
     render() {
         const popUpImg = {
             width:"500px",
@@ -55,13 +52,13 @@ class Home extends React.Component {
         }
         const modal = this.props.parentState.showModal ? (
             <Modal>
-                <div className="modal" onClick={this.props.ExitModal}>
+                <div className="modal" >
                     <div className="modal-container">
                         <div className="modal-left-container">
                             <img src={this.props.parentState.modalImgInfo.picture_url} style={popUpImg}/>
                         </div>
                         <div className="modal-right-container">
-                            <div className="top-right-container">
+                            <div className="top-right-container" onClick={this.props.ExitModal}>
                                 X
                             </div>
                             <div className="top-right-inner-container">
@@ -72,7 +69,9 @@ class Home extends React.Component {
                                 <div className="likes-container"> 
                                     <div>{this.props.parentState.modalImgInfo.likes} likes </div>
                                 </div>
+                                <button className="delete button" onClick={()=> {console.log(this.props.parentState.modalImgInfo)}}>delete</button>
                             </div>
+                            
                         </div>
                     </div>
                 </div>
