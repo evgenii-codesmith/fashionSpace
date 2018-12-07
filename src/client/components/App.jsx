@@ -231,53 +231,6 @@ class App extends React.Component {
           );
         }
         this.setState({
-<<<<<<< HEAD
-            uploadStyleClickOutDoor : !this.state.uploadStyleClickOutDoor,
-        })
-    }
-
-    handleUrlAndTextSubmit(){
-        event.preventDefault();
-        axios.post("http://localhost:3000/uploadPicture", {
-            uploadedFileCloudinaryUrl: this.state.uploadedFileCloudinaryUrl,
-            uploadText: this.state.uploadText,
-        })
-            .then(response => {
-                console.log(response);
-            })
-            .catch( err => {
-                console.log(err)
-            })
-
-    }
-
-    getTopPictureUrls(){
-        axios.get("http://localhost:3000/pictures")
-            .then(response => {
-                let arr = [];
-                for (let key in response.data) {
-                let img_url_crop = response.data[key].url.replace('upload/', 'upload/w_500,h_500/');
-                console.log(img_url_crop);
-                arr.push(<div><img id={key} onClick={this.handleShowModal} src={img_url_crop} className="imgDisplay"/></div>)
-                }
-                this.setState({
-                    topPictureList: response.data,
-                    displayPicArr: arr,
-                })
-
-                
-            })
-            .catch( err => {
-                console.log(err)
-            })
-    }
-
-
-    
-
-    render() {
-=======
->>>>>>> cb045400737e6f9b9a9201d73d20d83161ef21bb
 
           topPictureList: response.data,
           displayPicArr: arr

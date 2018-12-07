@@ -3,7 +3,7 @@ const db = require('../models/db')
 
 // requirements for using geoip library
 const cities = require('cities');
-const db = require('../models/db');
+// const db = require('../models/db');
 
 const cookieController = require('../util/cookieController');
 
