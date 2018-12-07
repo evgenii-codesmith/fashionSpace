@@ -6,6 +6,12 @@ import history from './../router/history.jsx'
 import PhotoUpload from './../router/PhotoUpload.jsx'
 import axios from 'axios'
 
+// require('dotenv').config();
+
+// const CLOUDINARY_UPLOAD_URL = process.env.CLOUDINARY_UPLOAD_URL;
+// const CLOUDINARY_UPLOAD_PRESET = process.env.CLOUDINARY_UPLOAD_PRESET
+// const CLOUDINARY_API_KEY = process.env.CLOUDINARY_API_KEY;
+
 class App extends React.Component {
   constructor(props) {
     super(props)
@@ -58,10 +64,12 @@ class App extends React.Component {
         });
     }
 
-
     onImageDrop(images) {
-    // uploads is an array that would hold all the post methods for each image to be uploaded, then we'd use axios.all()
-    const uploads = images.map(image => {
+      console.log('CLOUDINARY_UPLOAD_URL :',CLOUDINARY_UPLOAD_URL);
+      console.log('CLOUDINARY_API_KEY :',CLOUDINARY_API_KEY);
+      console.log('CLOUDINARY_UPLOAD_PRESET :',CLOUDINARY_UPLOAD_PRESET);
+      // uploads is an array that would hold all the post methods for each image to be uploaded, then we'd use axios.all()
+      const uploads = images.map(image => {
       // our formdata
       const formData = new FormData();
       formData.append("file", image);
@@ -92,26 +100,40 @@ class App extends React.Component {
 }
 
     handleLoginSubmit(event) {
-        event.preventDefault();
-        // event.target.reset();
-
-        axios.post("http://localhost:3000/login", {
-            username: this.state.username,
-            password: this.state.password,
+      event.preventDefault();
+      // event.target.reset();
+      let position;
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((pos) => {
+          let position = pos.coords;
+          let lat = position.latitude;
+          let lng = position.longitude;
+          axiosCall(lat, lng);
+        });
+      } else { 
+        x.innerHTML = "Geolocation is not supported by this browser.";
+      }
+      const axiosCall = (lat, lng) => {
+      axios
+        .post("http://localhost:3000/login", {
+          username: this.state.username,
+          password: this.state.password,
+          lat,
+          lng,
         })
-            .then(response => {
-                this.setState({
-                    userUuid: response.data,
-                    isAuthenticated: true,
-                })
-                window.setTimeout(() => {
-                    history.push('/home');
-                 }, 3400)
-            })
-            .catch( err => {
-                console.log(err)
-            })
-            
+        .then(response => {
+          // this.setState({
+          //   userUuid: response.data,
+          //   isAuthenticated: true
+          // });
+          window.setTimeout(() => {
+            history.push("/home");
+          }, 3400);
+        })
+        .catch(err => {
+          console.log('login err: ', err);
+        });
+      }
     }
 
     handlePicSubmit(event) {
@@ -168,11 +190,8 @@ class App extends React.Component {
     handleUrlAndTextSubmit(){
         event.preventDefault();
         axios.post("http://localhost:3000/uploadPicture", {
-            userUuid: this.state.userUuid,
             uploadedFileCloudinaryUrl: this.state.uploadedFileCloudinaryUrl,
             uploadText: this.state.uploadText,
-            uploadStyleClickNightOut: this.state.uploadStyleClickNightOut,
-            uploadStyleClickOutDoor: this.state.uploadStyleClickOutDoor,
         })
             .then(response => {
                 console.log(response);
