@@ -1,3 +1,4 @@
+
 import React from "react";
 import Login from "./../router/Login.jsx";
 import { BrowserRouter, Router, Route, Switch } from "react-router-dom";
@@ -7,9 +8,6 @@ import PhotoUpload from "./../router/PhotoUpload.jsx";
 import axios from "axios";
 import Coldplay from "./Sound"
 
-const CLOUDINARY_UPLOAD_PRESET = "p2qbhuwl";
-const CLOUDINARY_UPLOAD_URL =
-  "https://api.cloudinary.com/v1_1/dwbr9kbj2/image/upload";
 
 class App extends React.Component {
   constructor(props) {
@@ -48,6 +46,7 @@ class App extends React.Component {
     this.ExitModal = this.ExitModal.bind(this);
     this.handleOASubmit = this.handleOASubmit.bind(this);
     this.handleFBOASubmit = this.handleFBOASubmit.bind(this);
+
   }
   
   ExitModal() {
@@ -67,12 +66,14 @@ class App extends React.Component {
   onImageDrop(images) {
     // uploads is an array that would hold all the post methods for each image to be uploaded, then we'd use axios.all()
     const uploads = images.map(image => {
+
       // our formdata
       const formData = new FormData();
       formData.append("file", image);
       formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET); // Replace the preset name with your own
       formData.append("api_key", CLOUDINARY_API_KEY); // Replace API key with your own Cloudinary API key
       formData.append("timestamp", (Date.now() / 1000) | 0);
+
 
       // Replace cloudinary upload URL with yours
       return axios
@@ -173,12 +174,12 @@ class App extends React.Component {
         //   userUuid: response.data,
         //   isAuthenticated: true
         // });
+
         window.setTimeout(() => {
           history.push("/home");
         }, 3400);
       })
       .catch(err => {
-        console.log('login err: ', err);
       });
     }
   }

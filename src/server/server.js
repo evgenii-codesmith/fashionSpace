@@ -21,7 +21,7 @@ const PORT = 3000;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(__dirname + '/../../dist'));
+app.use(express.static(path.join(__dirname, '../../dist/')));
 
 // app.use(passport.initialize());
 // app.use(passport.session());
@@ -31,9 +31,14 @@ app.use(cors());
 app.use(cookieController.checkInfo, userController.getCity, cityController.grabCityId, userController.startSession);
 
 // *** NEW ROUTES BY EVGENTI JIM
+// app.get('/', (req, res) => {
+//   res.send();
+// });
+
 app.post('/login', userController.grabUserId, userController.updateCityId, (req, res) => {
+  console.log('almost done with login');
   cookieController.setCookie(req, res);
-  return res.json(res.locals.userid);
+  return res.send('');
 });
 
 app.get('/pictures', picturesController.grabPics);

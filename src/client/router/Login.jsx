@@ -41,6 +41,7 @@ class Login extends React.Component {
               </form>
               <div className='sumbit'><button className="login-submit" onClick={this.props.handleOASubmit} value="Google" />GOOGLE</div>
               <div className='sumbit'><button className="login-submit" onClick={this.props.handleFBOASubmit} value="Facebook"/>FACEBOOK</div>
+
             </div>
           </div>
           : <div className="success-login">
