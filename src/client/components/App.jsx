@@ -170,10 +170,11 @@ class App extends React.Component {
         lng,
       })
       .then(response => {
-        // this.setState({
-        //   userUuid: response.data,
-        //   isAuthenticated: true
-        // });
+        console.log('setting isAuth to true');
+        this.setState({
+          userUuid: response.data,
+          isAuthenticated: true
+        });
 
         window.setTimeout(() => {
           history.push("/home");
@@ -266,7 +267,7 @@ class App extends React.Component {
       .then(response => {
         let arr = [];
         for (let key in response.data) {
-          let img_url_crop = response.data[key].picture_url.replace(
+          let img_url_crop = response.data[key].url.replace(
             "upload/",
             "upload/w_500,h_500/"
           );
