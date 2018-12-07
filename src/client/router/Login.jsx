@@ -36,7 +36,11 @@ class Login extends React.Component {
                   <input className="login-text" placeholder="password" type="password" value={this.props.password} onChange={this.props.handlePassword} />
                 </div>
                 <div className='sumbit'><input className="login-submit" type="submit" value="Submit" /></div>
+                {/* <div className='sumbit'><a className="login-submit" href="http://localhost:3000/googleOauth">Login with Google</a></div>
+                <div className='sumbit'><a className="login-submit" href="http://localhost:3000/FBOauth">Login with Facebook</a></div> */}
               </form>
+              <div className='sumbit'><button className="login-submit" onClick={this.props.handleOASubmit} value="Google" />GOOGLE</div>
+              <div className='sumbit'><button className="login-submit" onClick={this.props.handleFBOASubmit} value="Facebook"/>FACEBOOK</div>
             </div>
           </div>
           : <div className="success-login">

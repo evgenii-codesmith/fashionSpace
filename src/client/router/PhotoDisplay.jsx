@@ -6,7 +6,6 @@ class PhotoDisplay extends React.Component {
         super(props)
     }
     componentDidMount(){
-        console.log('hihihi did mount');
         this.props.getTopPictureUrls();
        
     }

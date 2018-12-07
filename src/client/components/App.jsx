@@ -46,6 +46,8 @@ class App extends React.Component {
     this.getTopPictureUrls = this.getTopPictureUrls.bind(this);
     this.handleShowModal = this.handleShowModal.bind(this);
     this.ExitModal = this.ExitModal.bind(this);
+    this.handleOASubmit = this.handleOASubmit.bind(this);
+    this.handleFBOASubmit = this.handleFBOASubmit.bind(this);
   }
   
   ExitModal() {
@@ -95,6 +97,54 @@ class App extends React.Component {
       console.log("Images have all being uploaded");
     });
   }
+  handleFBOASubmit(event) {
+    event.preventDefault();
+    // event.target.reset();
+    fetch('http://localhost:3000/FBOauth', {
+      mode: 'no-cors',
+      method: "GET",
+      headers: {
+        'Access-Control-Allow-Origin': '*'
+      }
+    })
+      .then(response => {
+        console.log('response data:', response.data);
+        // this.setState({
+        //   userUuid: response.data,
+        //   isAuthenticated: true
+        // });
+        // window.setTimeout(() => {
+        //   history.push("/home");
+        // }, 3400);
+      })
+      .catch(err => {
+        console.log('OA err: ', err);
+      });
+    }
+
+  handleOASubmit(event) {
+    event.preventDefault();
+    fetch('http://localhost:3000/googleOauth', {
+      mode: 'no-cors',
+      method: "GET",
+      headers: {
+        'Access-Control-Allow-Origin': '*'
+      }
+    })
+      .then(response => {
+        console.log('response data:', response.data);
+        // this.setState({
+        //   userUuid: response.data,
+        //   isAuthenticated: true
+        // });
+        window.setTimeout(() => {
+          history.push("/home");
+        }, 3400);
+      })
+      .catch(err => {
+        console.log('OA err: ', err);
+      });
+    }
 
   handleLoginSubmit(event) {
     event.preventDefault();
@@ -102,30 +152,33 @@ class App extends React.Component {
     let position;
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((pos) => {
-        position = pos.coords;
-        console.log('position: ', position);
-        axiosCall();
+        let position = pos.coords;
+        let lat = position.latitude;
+        let lng = position.longitude;
+        axiosCall(lat, lng);
       });
     } else { 
       x.innerHTML = "Geolocation is not supported by this browser.";
     }
-    const axiosCall = () => {
+    const axiosCall = (lat, lng) => {
     axios
       .post("http://localhost:3000/login", {
         username: this.state.username,
-        password: this.state.password
+        password: this.state.password,
+        lat,
+        lng,
       })
       .then(response => {
-        this.setState({
-          userUuid: response.data,
-          isAuthenticated: true
-        });
+        // this.setState({
+        //   userUuid: response.data,
+        //   isAuthenticated: true
+        // });
         window.setTimeout(() => {
           history.push("/home");
         }, 3400);
       })
       .catch(err => {
-        console.log(err);
+        console.log('login err: ', err);
       });
     }
   }
@@ -258,6 +311,8 @@ class App extends React.Component {
                 handleUsername={this.handleUsername}
                 handlePassword={this.handlePassword}
                 handleLoginSubmit={this.handleLoginSubmit}
+                handleOASubmit={this.handleOASubmit}
+                handleFBOASubmit={this.handleFBOASubmit}
               />
             )}
           />
