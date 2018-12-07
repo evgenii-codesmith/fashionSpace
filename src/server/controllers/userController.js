@@ -10,11 +10,13 @@ const cookieController = require('../util/cookieController');
 const userController = {};
 
 userController.startSession = (req, res, next) => {
+  console.log('starting session');
   cookieController.setCookie(req, res);
   next();
 };
 
 userController.grabUserId = (req, res, next) => {
+  console.log('grabbing user id');
   const { username, password } = req.body;
   const values = [username, password];
   db.any('SELECT id FROM users WHERE (username = $1 AND password = $2)', values)
@@ -30,6 +32,7 @@ userController.grabUserId = (req, res, next) => {
 };
 
 userController.updateCityId = (req, res, next) => {
+  console.log('updating city id');
   const { cityid, userid } = res.locals;
   const values = [cityid, userid];
 
@@ -45,6 +48,7 @@ userController.updateCityId = (req, res, next) => {
 };
 
 userController.getCity = async (req, res, next) => {
+  console.log('getting city lat long)');
   const { lat, lng } = res.locals;
   const userCity = await cities.gps_lookup(lat, lng);
   res.locals.city = userCity.city;

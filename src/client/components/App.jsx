@@ -7,6 +7,12 @@ import history from './../router/history.jsx'
 import PhotoUpload from './../router/PhotoUpload.jsx'
 import axios from 'axios'
 
+// require('dotenv').config();
+
+// const CLOUDINARY_UPLOAD_URL = process.env.CLOUDINARY_UPLOAD_URL;
+// const CLOUDINARY_UPLOAD_PRESET = process.env.CLOUDINARY_UPLOAD_PRESET
+// const CLOUDINARY_API_KEY = process.env.CLOUDINARY_API_KEY;
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -61,6 +67,7 @@ class App extends React.Component {
   onImageDrop(images) {
     // uploads is an array that would hold all the post methods for each image to be uploaded, then we'd use axios.all()
     const uploads = images.map(image => {
+
       // our formdata
       const formData = new FormData();
       formData.append("file", image);
@@ -102,6 +109,7 @@ class App extends React.Component {
       });
     } else { 
       x.innerHTML = "Geolocation is not supported by this browser.";
+
     }
     const axiosCall = () => {
     axios
@@ -223,6 +231,7 @@ class App extends React.Component {
           );
         }
         this.setState({
+
           topPictureList: response.data,
           displayPicArr: arr
         });
