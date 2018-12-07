@@ -29,7 +29,8 @@ class PhotoUpload extends React.Component {
                             className = "dropZone"
                             onDrop={this.props.onImageDrop}
                             multiple={false}
-                            accept="image/*">
+                            // accept="image/*"
+                            >
                             {!this.props.parentState.uploadedSuccess
                               ? <div>Drop an image or click to select a file to upload.</div>
                               : <div>
