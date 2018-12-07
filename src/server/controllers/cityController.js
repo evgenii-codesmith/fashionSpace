@@ -10,7 +10,6 @@ cityController.grabCityId = (req, res, next) => {
   db.any('SELECT id FROM city WHERE (name = $1 AND state = $2)', values)
     .then((data) => {
       console.log('data: ', data);
-      
       res.locals.cityid = data[0].id;
       next();
     })
@@ -18,7 +17,9 @@ cityController.grabCityId = (req, res, next) => {
       //Instert new city to db
       db.one('INSERT INTO city(name, state, lat, long) VALUES ($1, $2, $3, $4) RETURNING id', [city, state, res.locals.lat, res.locals.lng ])
       .then(data => {
-        console.log(data.id); // print new user id;
+        // console.log(data.id); // print new user id;
+        res.locals.cityid = data.id;
+        next();
       })
       .catch(error => {
         console.log('ERROR:', error); // print error;
