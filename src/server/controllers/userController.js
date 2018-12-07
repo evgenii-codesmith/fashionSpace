@@ -1,4 +1,5 @@
 require('dotenv').config();
+
 const db = require('../models/db')
 
 // requirements for using geoip library
